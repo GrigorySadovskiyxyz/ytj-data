@@ -5,4 +5,5 @@
 https://avoindata.prh.fi/bis/v1?totalResults=false&maxResults=1000&resultsFrom=0&businessLineCode=28990&companyRegistrationFrom=1900-02-28
 
 2. Put every data to the business_data.csv file to find URLs for each one.
+
 3. 
