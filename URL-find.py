@@ -1,22 +1,46 @@
-from selenium.webdriver import Chrome
+import time
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
-from selenium.webdriver.chrome.options import Options as ChromeOptions
+driver = webdriver.Chrome()  # Optional argument, if not specified will search path.
+driver.get('https://tietopalvelu.ytj.fi/')
+driver.maximize_window()
+time.sleep(5)
+search_form = driver.find_element(by=By.ID, value="businessIdOrLEI")
+search_form.send_keys('2811294-4')
+clickable = driver.find_element(By.XPATH, '//button[@class="btn btn-primary false mr-2"]')
+clickable.click()
 
-options = ChromeOptions()
-options.headless = True
-assert options.headless  # Operating in headless mode
-browser = Chrome(options=options)
-browser.get('https://tietopalvelu.ytj.fi/')
+try:
+    WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.XPATH, '//tr[@class="current-info-first-row current-info-last-row"]')))
+    elements = driver.find_elements(By.XPATH, '//div[@class="pt-3 avoid-break-before desktop"]/table/tbody')
+    
+    target_element = None
+    for element in elements:
+        divs = element.find_elements(By.TAG_NAME, "div")
+        for div in divs:
+            if 'www.' in div.text:
+                target_element = div
+                break
+        if target_element:
+            break
 
-search_form = browser.find_element_by_id("businessIdOrLEI")
-search_form.send_keys('0162133-5')
-search_form.submit()
+    if target_element:
+        print(target_element.text)
+    else:
+        print("null")
+except Exception as e:
+    print(f"An error occurred: {e}")
 
-search_box = driver.find_element("name", "q")
+driver.quit()
 
-search_box.send_keys('ChromeDriver')
+#search_box = driver.find_element("name", "q")
 
-search_box.submit()
+#search_box.send_keys('ChromeDriver')
+
+#search_box.submit()
 
 # import requests
 # import csv
