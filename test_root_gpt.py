@@ -6,6 +6,9 @@ import json
 from usp.tree import sitemap_tree_for_homepage
 import csv
 from urllib.parse import urlparse, urljoin
+import codecs
+from bs4.dammit import EncodingDetector
+import lxml 
 
 
 # def get_subpage_links(main_url):
@@ -76,14 +79,20 @@ from urllib.parse import urlparse, urljoin
 # print(f"Data has been saved to {json_output_path}")
 
 
-bot = Yirabot()
-sitemap_url = "https://www.demach.fi/sitemap-1.xml"
-crawl_data = bot.validate(url, force=True) #Only use force in ethical situations
+# sitemap_url = "https://www.demach.fi/sitemap-1.xml"
+# crawl_data = bot.validate(sitemap_url, force=True) #Only use force in ethical situations
 
+#https://stackoverflow.com/questions/7219361/python-and-beautifulsoup-encoding-issues#comment115444009_7222936
 
+url = "http://mat-service.fi/"
+resp = requests.get(url,headers={'User-Agent': 'Mozilla/5.0'})
+http_encoding = resp.encoding if 'charset' in resp.headers.get('content-type', '').lower() else None
+html_encoding = EncodingDetector.find_declared_encoding(resp.content, is_html=True)
+encoding = html_encoding or http_encoding
+soup = BeautifulSoup(resp.content, 'lxml', from_encoding=encoding)
 
-
-
+# Prints all text that are within <div> with the class `texts`
+print([i.text for i in soup.findAll({"div":{"class":"texts"}})])
 
 # Displaying some extracted data
 # print(crawl_data)
