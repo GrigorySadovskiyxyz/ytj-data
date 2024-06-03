@@ -16,8 +16,8 @@
 
 8. Main URLs of the webpages were checked for the security connection (some of them have https, others have http).
 
-9. Data were gathered on 27/06/2024.
+9. Data were gathered on 03/06/2024.
 
 10. https://www.zenrows.com/blog/web-scraping-headers#relevant-http-headers was the guideline for the making proper requests headers in order to scrape.
 
-11.
+11. Next is try to fix R code to Python as in original study.
