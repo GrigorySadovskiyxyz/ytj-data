@@ -10,7 +10,7 @@ from datetime import datetime
 API_CALL_LIMIT_PER_MINUTE = 50  # For non-stop requests
 CHARACTER_LIMIT_PER_CALL = 2000  # Max characters per API call
 LIBRETRANSLATE_API_URL = "https://libretranslate.com/translate"
-API_KEY = "7329399d-e2bf-4a2c-929d-ead701fb395e"  # Your provided API key
+API_KEY = "0dccb918-322e-457a-8013-ac23233c8d10"  # Your provided API key
 
 # File paths
 CHECKPOINT_FILE = 'checkpoint_translated_data.json'
